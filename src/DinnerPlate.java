@@ -1,11 +1,11 @@
 import java.util.Scanner;
 
-public class Dinnerplate {
+public class DinnerPlate {
     Scanner scanne = new Scanner(System.in);
     boolean exit = false;
 
     public static void main(String[] args) {
-        Dinnerplate dinnerplate = new Dinnerplate();
+        DinnerPlate dinnerplate = new DinnerPlate();
         dinnerplate.printHeader();
         dinnerplate.runMenu();
     }

@@ -1,22 +1,24 @@
 import java.util.Scanner;
 
 public class DinnerPlate {
-    Scanner scanne = new Scanner(System.in);
     boolean exit = false;
+    Scanner scanne = new Scanner(System.in);
 
     public static void main(String[] args) {
         DinnerPlate dinnerplate = new DinnerPlate();
         dinnerplate.printHeader();
         dinnerplate.runMenu();
     }
-    private void runMenu(){                     //Menyn är void för den skall inte spara någon data.
-        while (!exit){                          //Kör menyn så länge användaren inte har initierat (q) "exit".
-            printMenu();                        //Skriver ut menyn (funktion nedan)
-            String choice = getUserInput();     //Hämtar användarens input (funktion nedan)
-            setUserInput(choice);               //Uppdaterar funktionen setUserInput med användarens input
+
+    private void runMenu() {                            //Menyn är void för den skall inte spara någon data.
+        while (!exit) {                                 //Kör menyn så länge användaren inte har initierat (q) "exit".
+            printMenu();                                //Skriver ut menyn (funktion nedan)
+            String choice = userInput();                //Hämtar användarens input (funktion nedan)
+            menuInput(choice);                          //Uppdaterar funktionen setUserInput med användarens input
         }
     }
-    private void printHeader(){
+
+    private void printHeader() {
         System.out.println("+-----------------------------------+");
         System.out.println("|           Dinner plate            |");
         System.out.println("+-----------------------------------+");
@@ -30,10 +32,10 @@ public class DinnerPlate {
         System.out.println("q. Quit application");
     }
 
-    private String getUserInput(){
+    private String userInput() {
         String choice = null;
-        while(choice == null){
-            try{                                                //Kanske inte nödvändigt med try catch här!!
+        while (choice == null) {
+            try {                                                //Kanske inte nödvändigt med try catch här!!
                 System.out.print("\nEnter your choice: ");
                 choice = scanne.nextLine();
             } catch (Exception e) {
@@ -43,8 +45,8 @@ public class DinnerPlate {
         return choice;
     }
 
-    private void setUserInput(String choice){
-        switch(choice){
+    private void menuInput(String choice) {
+        switch (choice) {
             case "1":
                 Ingredient.runIngredient();                         //Initierar kör menyn under class Ingredient
                 break;
@@ -62,4 +64,3 @@ public class DinnerPlate {
         }
     }
 }
-

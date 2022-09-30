@@ -1,17 +1,19 @@
 import java.util.Scanner;
 
 public class Meat extends Ingredient {
+    protected static final String[] arrAllowedContains = new String[]{"1", "2", "3", "4", "r"};
+    Scanner scanne = new Scanner(System.in);
+    String meatType;
+
     public Meat(Integer proteinCount, Integer fatCount, Integer calorieCount, String meatType) {
         super(proteinCount, fatCount, calorieCount);
-        this.scanne = new Scanner(System.in);
+        this.meatType = meatType;
     }
 
-    public static void runMeat() {
-        Meat meat = new Meat(-1, -1, -1, null);
-        meat.runMenu();
+    public Meat() {
     }
 
-    private void runMenu() {
+    public void runMenu() {
         printMenu();
         String choice = userInput();
         menuInput(choice);
@@ -29,44 +31,45 @@ public class Meat extends Ingredient {
     private String userInput() {
         String choice = null;
 
-        while (!allowedContains.contains(choice)) {
+        while (!arrAllowedContains(choice)) {
             if (choice != null) {
                 System.out.println("Not a valid choice");
                 printMenu();
                 choice = null;
             } else {
-                try {
-                    System.out.print("\nEnter your choice: ");
-                    choice = scanne.nextLine();
-                } catch (Exception var3) {
-                    throw new RuntimeException(var3);
-                }
+                System.out.print("\nEnter your choice: ");
+                choice = scanne.nextLine();
             }
         }
 
         return choice;
     }
 
+    private boolean arrAllowedContains(String choice) {
+        for (String str : arrAllowedContains) {
+            if (str.equals(choice)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     private void menuInput(String choice) {
         while (choice == null) {
             choice = scanne.nextLine();
         }
+        Ingredient ingredient = new Ingredient();
         switch (choice) {
-            case "1":
-                break;                              //TODO skapa bird objektet och sen hämta data = getters och setters
-            case "2":
-                System.out.println("Not implemented yet");
-                break;
-            case "3":
-                System.out.println("Not implemented yet");
-                break;
-            case "4":
-                System.out.println("Not implemented yet");
-                break;
-            case "r":
-                break;
-            default:
-                System.out.println("Not a valid choice");
+            case "1" -> {
+                System.out.println("There is suppose to be choices here but everything taste like chicken so I'll just give you a chicken");
+                Bird chicken = new Bird(30, 10, 2, "Bird", "Chicken");
+                arrIngredients[0] = chicken;
+            }
+            case "2" -> System.out.println("Not implemented yet");
+            case "3" -> System.out.println("Not implemented yet");
+            case "4" -> System.out.println("Not implemented yet");
+            case "r" -> ingredient.runMenu();
+            default -> System.out.println("Not a valid choice");
         }
 
     }

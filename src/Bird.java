@@ -1,11 +1,12 @@
 public class Bird extends Meat {
-    public Bird(Integer proteinCount, Integer fatCount, Integer calorieCount, String meatType) {
+    String birdKind;
+
+    public Bird(Integer proteinCount, Integer fatCount, Integer calorieCount, String meatType, String birdKind) {
         super(proteinCount, fatCount, calorieCount, meatType);
+        this.birdKind = birdKind;
     }
 
-    public void setBird() {
-        Bird chicken = new Bird(30, 10, 100, "Bird");    //,"whole","Chicken");
-        Bird goose = new Bird(20, 20, 5, "Bird");       //,"whole","Goose");
-        Bird turkey = new Bird(15, 10, 0, "Bird");      //,"whole","Turkey");
+    public String getBirdKind() {
+        return birdKind;
     }
 }

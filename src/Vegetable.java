@@ -1,5 +1,10 @@
 public class Vegetable extends Ingredient {
-    public Vegetable(Integer proteinCount, Integer fatCount, Integer calorieCount) {
+    String vegetableKind;
+    public Vegetable(Integer proteinCount, Integer fatCount, Integer calorieCount, String vegetableKind) {
         super(proteinCount, fatCount, calorieCount);
+        this.vegetableKind = vegetableKind;
+    }
+    public String getVegetableKind() {
+        return vegetableKind;
     }
 }

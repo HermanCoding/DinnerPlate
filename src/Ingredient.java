@@ -1,22 +1,36 @@
-import java.util.Arrays;
-import java.util.HashSet;
 import java.util.Scanner;
-import java.util.Set;
 
 public class Ingredient {
     protected static final String[] arrAllowedContains = new String[]{"1", "2", "3", "4", "r"};
-    protected static final Set<String> allowedContains = new HashSet<>(Arrays.asList(arrAllowedContains));
+    public static Ingredient[] arrIngredients = new Ingredient[4];
+    //Ingredient ingredient = new Ingredient();
     Scanner scanne = new Scanner(System.in);
+    Integer proteinCount;
+    Integer fatCount;
+    Integer calorieCount;
 
     public Ingredient(Integer proteinCount, Integer fatCount, Integer calorieCount) {
+        this.proteinCount = proteinCount;
+        this.fatCount = fatCount;
+        this.calorieCount = calorieCount;
     }
 
-    public static void runIngredient() {            //En metod (i C# funktion) som är statisk. Anledningen till detta är
-        Ingredient ingredient = new Ingredient(-1, -1, -1);
-        ingredient.runMenu();                       //för att den skall kunna hämtas utanför klassen utan att deklareras
+    public Ingredient() {
     }
 
-    private void runMenu() {
+    public Integer getProteinCount() {
+        return proteinCount;
+    }
+
+    public Integer getFatCount() {
+        return fatCount;
+    }
+
+    public Integer getCalorieCount() {
+        return calorieCount;
+    }
+
+    public void runMenu() {
         printMenu();
         String choice = userInput();
         menuInput(choice);
@@ -27,51 +41,93 @@ public class Ingredient {
         System.out.println("1. Meat");
         System.out.println("2. Vegetable");
         System.out.println("3. Side");
-        System.out.println("4. Dairy");
+        System.out.println("4. Sauce");
         System.out.println("r. Return to previous menu");
     }
 
     private String userInput() {
         String choice = null;
-        while (!allowedContains.contains(choice)) {
+        while (!arrAllowedContains(choice)) {
             if (!(choice == null)) {
                 System.out.println("Not a valid choice");
                 printMenu();
                 choice = null;
             } else {
-                try {
-                    System.out.print("\nEnter your choice: ");
-                    choice = scanne.nextLine();
-                } catch (Exception e) {
-                    throw new RuntimeException(e);
-                }
+                System.out.print("\nEnter your choice: ");
+                choice = scanne.nextLine();
             }
         }
         return choice;
+    }
+
+    private boolean arrAllowedContains(String choice) {
+        for (String str : arrAllowedContains) {
+            if (str.equals(choice)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private Integer trycatch() {
+        boolean numImp = false;
+        int number = -1;
+        while (!numImp) {
+            try {
+                number = Integer.parseInt(scanne.nextLine());
+                numImp = true;
+            } catch (NumberFormatException e) {
+                System.out.println("Write an integer.");
+            }
+        }
+        return number;
     }
 
     private void menuInput(String choice) {
         while (choice == null) {
             choice = scanne.nextLine();
         }
+        Meat meat = new Meat();
         switch (choice) {
             case "1":
-                Meat.runMeat();                                             //Initierar menyn under class Meat
+                meat.runMenu();                                         //Initierar menyn under class Meat
                 break;
             case "2":
-                //Vegetable.runVegetable();                                 //Initierar menyn under class Vegetable
+                System.out.println("Carrots are good for almost everything. Here have a carrot!");
+                arrIngredients[1] = new Vegetable(1, 1, 20, "Carrot");
                 break;
             case "3":
-                System.out.println("Not implemented yet");
+                System.out.println("What kind of side do you want? (Eg. Potatoes)");              //Låter användaren skriva in vad de vill ha till
+                String sideType = scanne.nextLine();
+                System.out.println("Protein contents of " + sideType + "?");
+                Integer spro = trycatch();
+                System.out.println("Fat contents of " + sideType + "?");
+                Integer sfat = trycatch();
+                System.out.println("Calorie contents of " + sideType + "?");
+                Integer scal = trycatch();
+                Side side = new Side(spro, sfat, scal, sideType);
+                arrIngredients[2] = side;
                 break;
             case "4":
-                System.out.println("Not implemented yet");
+                System.out.println("What kind of sauce do you want? (Eg. Béarnaise)");              //Låter användaren skriva in vad de vill ha till
+                String sauceType = scanne.nextLine();
+                System.out.println("Protein contents of " + sauceType + "?");
+                Integer sapro = trycatch();
+                System.out.println("Fat contents of " + sauceType + "?");
+                Integer safat = trycatch();
+                System.out.println("Calorie contents of " + sauceType + "?");
+                Integer sacal = trycatch();
+                Sauce sauce = new Sauce(sapro, safat, sacal, sauceType);
+                arrIngredients[3] = sauce;
                 break;
             case "r":
                 break;
             default:
                 System.out.println("Not a valid choice");
-
+                //If sats skall användas istället för
+                // switchsatser om vi har flera olika
+                //variabler. under varje sats
+                //t.ex. och , eller.
         }
     }
 }
